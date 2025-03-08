@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EVERLOST - Digital Artifacts of Tomorrow. Experience the future of digital ownership through unique NFT artifacts.">
+    <title>EVERLOST | Future of Digital Ownership</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #E2E2E2;
+            --secondary: #1A1A1A;
+            --accent: #8A8A8A;
+            --bg: #000000;
+            --glow: rgba(226, 226, 226, 0.1);
+            --gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Hero styles */
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 20vw, 16rem);
+            font-weight: 300;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 2rem;
+            position: relative;
+            cursor: default;
+            animation: none;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-title.reveal {
+            animation: titleReveal 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .hero-title.glitch {
+            animation: glitchEffect 0.1s infinite;
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+                text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(-5px);
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 0.4),
+                    0 0 40px rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        @keyframes glitchEffect {
+            0%, 100% {
+                transform: translate(0) scale(1);
+                filter: brightness(1) contrast(1);
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            10%, 90% {
+                transform: translate(-4px, 2px) scale(1.04);
+                filter: brightness(1.4) contrast(1.2);
+                text-shadow: 
+                    4px 0 20px rgba(255, 255, 255, 0.9),
+                    8px 0 40px rgba(255, 255, 255, 0.7),
+                    -2px 0 2px rgba(255, 0, 0, 0.5);
+            }
+            20%, 80% {
+                transform: translate(4px, -2px) scale(0.96);
+                filter: brightness(0.8) contrast(1.3);
+                text-shadow: 
+                    -4px 0 20px rgba(255, 255, 255, 0.9),
+                    -8px 0 40px rgba(255, 255, 255, 0.7),
+                    2px 0 2px rgba(0, 255, 255, 0.5);
+            }
+            30%, 70% {
+                transform: translate(-3px, -3px) scale(1.03) skew(-2deg);
+                filter: brightness(1.3) contrast(0.9);
+                text-shadow: 
+                    2px 0 20px rgba(255, 255, 255, 0.9),
+                    4px 0 40px rgba(255, 255, 255, 0.7),
+                    1px 0 2px rgba(0, 255, 0, 0.5);
+            }
+            40%, 60% {
+                transform: translate(3px, 3px) scale(0.97) skew(2deg);
+                filter: brightness(0.9) contrast(1.2);
+                text-shadow: 
+                    -2px 0 20px rgba(255, 255, 255, 0.9),
+                    -4px 0 40px rgba(255, 255, 255, 0.7),
+                    -1px 0 2px rgba(255, 255, 0, 0.5);
+            }
+            50% {
+                transform: translate(0) scale(1.02) skew(-1deg);
+                filter: brightness(1.2) contrast(1.1);
+                text-shadow: 
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(255, 255, 255, 0.8),
+                    0 0 60px rgba(255, 255, 255, 0.6),
+                    0 0 2px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 2rem);
+            color: var(--accent);
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s ease forwards 1s;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button styles */
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s ease forwards 1.5s;
+        }
+
+        .cta-button {
+            padding: 1.5rem 3rem;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-family: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .cta-button.primary {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .cta-button.primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        /* Background elements */
+        .concrete {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(40,40,40,0.3) 0%, transparent 100%),
+                repeating-linear-gradient(0deg, 
+                    rgba(32,32,32,0.2) 0%, 
+                    rgba(40,40,40,0.3) 5%, 
+                    rgba(32,32,32,0.2) 10%
+                ),
+                repeating-linear-gradient(90deg, 
+                    rgba(32,32,32,0.2) 0%, 
+                    rgba(40,40,40,0.3) 5%, 
+                    rgba(32,32,32,0.2) 10%
+                );
+            filter: contrast(120%) brightness(90%);
+            opacity: 0.3;
+            animation: concretePulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(-2px) scale(3);
+        }
+
+        @keyframes concretePulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                filter: contrast(120%) brightness(90%);
+                transform: translateZ(-2px) scale(3);
+            }
+            50% { 
+                opacity: 0.4; 
+                filter: contrast(140%) brightness(85%);
+                transform: translateZ(-2px) scale(3.1);
+            }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMDY2FhYmLnlwWpAAAAQklEQVQ4y2NgQAX8DKgAX4GBgYGRARXgKzAwMDAhK8BXwMDAwIxVQT8DA8N8ZAX4ChgYGFhwKyhhYGCYj6wAXwEDAwMAZ6YTBrj/U4QAAAAASUVORK5CYII=');
+            opacity: 0.015;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+            transform: translateZ(-1px) scale(2);
+        }
+
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(var(--glow) 1px, transparent 1px),
+                linear-gradient(90deg, var(--glow) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.03;
+            z-index: 0;
+            transform: perspective(1000px) rotateX(60deg) translateY(-50%) scale(2);
+            transform-origin: center center;
+            pointer-events: none;
+            animation: gridFloat 20s infinite linear;
+        }
+
+        @keyframes gridFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px) scale(0.95);
+            z-index: 10;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0) scale(1);
+        }
+
+        .page.exit {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+        }
+
+        .page-content {
+            max-width: 1200px;
+            width: 90%;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-content:hover::before {
+            opacity: 0.05;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 1rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50%;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px) scale(0.9);
+            pointer-events: none;
+        }
+
+        .home-button.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 0 30px var(--glow);
+        }
+
+        .home-button:active {
+            transform: translateY(0) scale(1);
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .home-button:hover .home-icon {
+            transform: scale(0.9);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--gradient);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.2;
+        }
+
+        .ownership-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .ownership-feature {
+            padding: 2rem;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ownership-feature::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ownership-feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .ownership-feature:hover::before {
+            opacity: 0.2;
+        }
+
+        .value-chart {
+            width: 100%;
+            height: 300px;
+            margin-top: 2rem;
+            background: var(--gradient);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .value-chart::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            bottom: 50%;
+            left: 0;
+            transform-origin: left;
+            animation: chartLine 2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes chartLine {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .page-description {
+            color: var(--accent);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.15s;
+        }
+
+        @media (max-width: 768px) {
+            .home-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.8rem;
+            }
+
+            .page-content {
+                padding: 3rem 1rem;
+                width: 95%;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page,
+            .home-button,
+            .gallery,
+            .ownership-features,
+            .value-chart,
+            .page-title,
+            .page-description {
+                animation: none !important;
+                transition: opacity 0.1s ease !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="concrete"></div>
+    <div class="noise"></div>
+    <div class="grid-lines"></div>
+
+    <!-- Home button -->
+    <button class="home-button" id="homeButton" onclick="showPage('home')">
+        <svg class="home-icon" viewBox="0 0 24 24">
+            <path d="M12 5.69L17 10.19V18H15V12H9V18H7V10.19L12 5.69M12 3L2 12H5V20H11V14H13V20H19V12H22L12 3Z"/>
+        </svg>
+    </button>
+
+    <!-- Main content pages -->
+    <div class="page active" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">EVERLOST</h1>
+            <p class="hero-subtitle">Digital Artifacts of Tomorrow</p>
+            <div class="cta-container">
+                <button class="cta-button primary" onclick="showPage('artifacts')">Explore Collection</button>
+                <button class="cta-button" onclick="showPage('ownership')">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="artifacts">
+        <div class="page-content">
+            <h2 class="page-title">Digital Artifacts</h2>
+            <p class="page-description">Curate and collect unique digital artifacts that transcend traditional art boundaries.</p>
+            <div class="gallery">
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="ownership">
+        <div class="page-content">
+            <h2 class="page-title">Eternal Ownership</h2>
+            <p class="page-description">Secure permanent ownership of digital masterpieces through blockchain technology.</p>
+            <div class="ownership-features">
+                <div class="ownership-feature">
+                    <h3>Blockchain Verified</h3>
+                    <p>Every piece is uniquely verified and tracked on the blockchain.</p>
+                </div>
+                <div class="ownership-feature">
+                    <h3>Smart Contracts</h3>
+                    <p>Automated royalties and transfers through smart contracts.</p>
+                </div>
+                <div class="ownership-feature">
+                    <h3>Permanent Record</h3>
+                    <p>Your ownership is permanently recorded and immutable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="value">
+        <div class="page-content">
+            <h2 class="page-title">Future Value</h2>
+            <p class="page-description">Invest in the future of art with pieces that appreciate in both value and meaning.</p>
+            <div class="value-chart"></div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize audio context
+        let audioContext = null;
+
+        // Function to ensure audio context is initialized
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
+
+        // Create metallic sound
+        function createMetallicSound(context, frequency, duration) {
+            const oscillator = context.createOscillator();
+            const gainNode = context.createGain();
+            const distortion = context.createWaveShaper();
+            const filter = context.createBiquadFilter();
+            
+            // Create metallic distortion
+            function makeDistortionCurve(amount) {
+                const k = amount;
+                const n_samples = 44100;
+                const curve = new Float32Array(n_samples);
+                for (let i = 0; i < n_samples; ++i) {
+                    const x = (i * 2) / n_samples - 1;
+                    curve[i] = ((3 + k) * x * 20 * (Math.PI / 180)) / (Math.PI + k * Math.abs(x));
+                }
+                return curve;
+            }
+            
+            distortion.curve = makeDistortionCurve(100);
+            filter.type = 'highshelf';
+            filter.frequency.value = 1000;
+            filter.gain.value = 10;
+            
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+            
+            gainNode.gain.setValueAtTime(0, context.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.7, context.currentTime + 0.05);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, context.currentTime + duration);
+            
+            oscillator.connect(distortion);
+            distortion.connect(filter);
+            filter.connect(gainNode);
+            gainNode.connect(context.destination);
+            
+            return { oscillator, duration };
+        }
+
+        // Play opening sound
+        function playOpeningSound() {
+            const context = initAudio();
+            
+            // Main bass with metallic texture
+            const sound1 = createMetallicSound(context, 25, 2);
+            const sound2 = createMetallicSound(context, 35, 1.5);
+            
+            sound1.oscillator.start();
+            sound1.oscillator.stop(context.currentTime + sound1.duration);
+            
+            setTimeout(() => {
+                sound2.oscillator.start();
+                sound2.oscillator.stop(context.currentTime + sound2.duration);
+            }, 200);
+        }
+
+        // Play hover sound
+        function playHoverSound() {
+            const context = initAudio();
+            const sound = createMetallicSound(context, 40, 0.5);
+            sound.oscillator.start();
+            sound.oscillator.stop(context.currentTime + sound.duration);
+        }
+
+        // Initialize audio on first user interaction
+        document.body.addEventListener('click', () => {
+            initAudio();
+        }, { once: true });
+
+        // Play opening sound when document is loaded
+        if (document.readyState === 'complete') {
+            document.body.click();
+            setTimeout(playOpeningSound, 100);
+        } else {
+            window.addEventListener('load', () => {
+                document.body.click();
+                setTimeout(playOpeningSound, 100);
+            });
+        }
+
+        // Title animation control
+        const title = document.querySelector('.hero-title');
+        
+        // Initial reveal animation
+        window.addEventListener('load', () => {
+            title.classList.add('reveal');
+        });
+
+        // Glitch effect on hover
+        title.addEventListener('mouseenter', () => {
+            title.classList.remove('reveal');
+            title.classList.add('glitch');
+            playHoverSound();
+        });
+
+        title.addEventListener('mouseleave', () => {
+            title.classList.remove('glitch');
+        });
+
+        // Add click sounds to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', playHoverSound);
+        });
+
+        function showPage(pageId) {
+            // Add exit animation to current page
+            document.querySelectorAll('.page.active').forEach(page => {
+                page.classList.add('exit');
+                setTimeout(() => {
+                    page.classList.remove('active', 'exit');
+                }, 300);
+            });
+
+            // Show new page after a slight delay
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+            }, 300);
+
+            // Show/hide home button
+            const homeButton = document.getElementById('homeButton');
+            if (pageId === 'home') {
+                homeButton.classList.remove('visible');
+            } else {
+                homeButton.classList.add('visible');
+            }
+
+            // Reset animations if needed
+            if (pageId === 'value') {
+                const chart = document.querySelector('.value-chart');
+                chart.style.animation = 'none';
+                chart.offsetHeight; // Trigger reflow
+                chart.style.animation = null;
+            }
+
+            // Update history state
+            history.pushState({ page: pageId }, '', `#${pageId}`);
+        }
+
+        // Handle back button
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('home');
+            }
+        });
+
+        // Initialize history
+        history.replaceState({ page: 'home' }, '', '#home');
+
+        // Handle initial hash
+        if (window.location.hash) {
+            showPage(window.location.hash.slice(1));
+        }
+    </script>
+</body>
+</html>
