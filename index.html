@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EVERLOST - Digital Artifacts of Tomorrow. Experience the future of digital ownership through unique NFT artifacts.">
+    <title>EVERLOST | Future of Digital Ownership</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+            --primary: #E2E2E2;
+            --secondary: #1A1A1A;
+            --accent: #8A8A8A;
+            --bg: #000000;
+            --glow: rgba(226, 226, 226, 0.1);
+            --gradient: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--primary);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Hero styles */
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 20vw, 16rem);
+            font-weight: 300;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 2rem;
+            position: relative;
+            cursor: default;
+            animation: none;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.1s ease-out;
+            transition: text-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease, color 0.2s ease;
+        }
+
+        .hero-title.reveal {
+            animation: titleReveal 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .hero-title.glitch {
+            position: relative;
+            animation: glitch-anim 0.1s infinite;
+            text-shadow: 0 0 20px rgba(0, 195, 255, 0.8);
+        }
+        
+        .hero-title.glitch:before,
+        .hero-title.glitch:after {
+            content: 'EVERLOST';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            clip: rect(0, 900px, 0, 0);
+        }
+        
+        .hero-title.glitch:before {
+            left: 3px;
+            text-shadow: -3px 0 #ff00c1;
+            animation: glitch-anim-1 0.5s infinite steps(1);
+        }
+        
+        .hero-title.glitch:after {
+            left: -3px;
+            text-shadow: 3px 0 #00fff9;
+            animation: glitch-anim-2 0.3s infinite steps(1);
+        }
+        
+        /* Button styles */
+        .cta-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1.5s ease forwards 1.5s;
+        }
+
+        .cta-button {
+            padding: 1.5rem 3rem;
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-family: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .cta-button.primary {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .cta-button.primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        /* Background elements */
+        .concrete {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(40,40,40,0.3) 0%, transparent 100%),
+                repeating-linear-gradient(0deg, 
+                    rgba(32,32,32,0.2) 0%, 
+                    rgba(40,40,40,0.3) 5%, 
+                    rgba(32,32,32,0.2) 10%
+                ),
+                repeating-linear-gradient(90deg, 
+                    rgba(32,32,32,0.2) 0%, 
+                    rgba(40,40,40,0.3) 5%, 
+                    rgba(32,32,32,0.2) 10%
+                );
+            filter: contrast(120%) brightness(90%);
+            opacity: 0.3;
+            animation: concretePulse 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(-2px) scale(3);
+        }
+
+        @keyframes concretePulse {
+            0%, 100% { 
+                opacity: 0.3; 
+                filter: contrast(120%) brightness(90%);
+                transform: translateZ(-2px) scale(3);
+            }
+            50% { 
+                opacity: 0.4; 
+                filter: contrast(140%) brightness(85%);
+                transform: translateZ(-2px) scale(3.1);
+            }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMDY2FhYmLnlwWpAAAAQklEQVQ4y2NgQAX8DKgAX4GBgYGRARXgKzAwMDAhK8BXwMDAwIxVQT8DA8N8ZAX4ChgYGFhwKyhhYGCYj6wAXwEDAwMAZ6YTBrj/U4QAAAAASUVORK5CYII=');
+            opacity: 0.015;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+            transform: translateZ(-1px) scale(2);
+        }
+
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(var(--glow) 1px, transparent 1px),
+                linear-gradient(90deg, var(--glow) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.03;
+            z-index: 0;
+            transform: perspective(1000px) rotateX(60deg) translateY(-50%) scale(2);
+            transform-origin: center center;
+            pointer-events: none;
+            animation: gridFloat 20s infinite linear;
+        }
+
+        @keyframes gridFloat {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px) scale(0.95);
+            z-index: 10;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0) scale(1);
+        }
+
+        .page.exit {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.95);
+        }
+
+        .page-content {
+            max-width: 1200px;
+            width: 90%;
+            padding: 4rem 2rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-content:hover::before {
+            opacity: 0.05;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 1rem;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50%;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-10px) scale(0.9);
+            pointer-events: none;
+        }
+
+        .home-button.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px) scale(1.1);
+            box-shadow: 0 0 30px var(--glow);
+        }
+
+        .home-button:active {
+            transform: translateY(0) scale(1);
+        }
+
+        .home-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .home-button:hover .home-icon {
+            transform: scale(0.9);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--gradient);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item:hover::before {
+            opacity: 0.2;
+        }
+
+        .ownership-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .ownership-feature {
+            padding: 2rem;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ownership-feature::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ownership-feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .ownership-feature:hover::before {
+            opacity: 0.2;
+        }
+
+        .value-chart {
+            width: 100%;
+            height: 300px;
+            margin-top: 2rem;
+            background: var(--gradient);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .value-chart::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            bottom: 50%;
+            left: 0;
+            transform-origin: left;
+            animation: chartLine 2s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes chartLine {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .page-description {
+            color: var(--accent);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards 0.15s;
+        }
+
+        @media (max-width: 768px) {
+            .home-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.8rem;
+            }
+
+            .page-content {
+                padding: 3rem 1rem;
+                width: 95%;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page,
+            .home-button,
+            .gallery,
+            .ownership-features,
+            .value-chart,
+            .page-title,
+            .page-description {
+                animation: none !important;
+                transition: opacity 0.1s ease !important;
+                transform: none !important;
+            }
+        }
+
+        /* Navigation menu styles */
+        .main-nav {
+            position: fixed;
+            top: 2rem;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item {
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-item:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-item:hover {
+            color: var(--primary);
+        }
+        
+        .nav-item:hover:after {
+            width: 80%;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active:after {
+            width: 80%;
+        }
+
+        /* Music control button styles */
+        .custom-audio-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex; /* 恢复显示音频控制 */
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 8px 15px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .custom-audio-controls:hover {
+            background: rgba(10, 10, 10, 0.8);
+            box-shadow: 0 0 20px rgba(220, 220, 220, 0.4);
+        }
+        
+        .play-button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(20, 20, 20, 0.8);
+            color: silver;
+            border: 1px solid rgba(192, 192, 192, 0.5);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .play-button:hover {
+            background: rgba(40, 40, 40, 0.9);
+            transform: scale(1.1);
+            color: white;
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .volume-icon {
+            font-size: 16px;
+            color: silver;
+        }
+        
+        .custom-volume {
+            width: 80px;
+            height: 7px;
+            margin: 0 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(50, 50, 50, 0.5);
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .custom-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: silver;
+            cursor: pointer;
+        }
+
+        /* Glitch effect classes */
+        .glitch {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+        
+        .glitch-low::before {
+            left: -1px;
+            text-shadow: 0 0 4px silver;
+            animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+        
+        .glitch-low::after {
+            left: 1px;
+            text-shadow: 0 0 4px silver;
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+        }
+        
+        .glitch-medium::before {
+            left: -2px;
+            text-shadow: 0 0 8px silver;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        
+        .glitch-medium::after {
+            left: 2px;
+            text-shadow: 0 0 8px silver;
+            animation: glitch-anim-2 1.8s infinite linear alternate-reverse;
+        }
+        
+        .glitch-high::before {
+            left: -3px;
+            text-shadow: 0 0 12px silver, 0 0 20px #00fff9;
+            animation: glitch-anim-1 0.8s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%, 0 66%, 100% 66%, 100% 100%, 0 100%);
+        }
+        
+        .glitch-high::after {
+            left: 3px;
+            text-shadow: 0 0 12px silver, 0 0 20px #ff00c1;
+            animation: glitch-anim-2 0.6s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%, 0 100%, 100% 100%);
+        }
+        
+        /* Extreme glitch class for very high volume */
+        .glitch-extreme {
+            animation: shake 0.2s infinite, flicker 0.1s infinite step-end;
+        }
+        
+        .glitch-extreme::before {
+            left: -4px;
+            text-shadow: 0 0 20px silver, 0 0 30px #00fff9;
+            animation: glitch-anim-1 0.4s infinite linear alternate-reverse, glitch-shift 0.3s infinite;
+            clip-path: polygon(0 10%, 100% 0, 100% 30%, 0 40%, 0 60%, 100% 70%, 100% 100%, 0 90%);
+        }
+        
+        .glitch-extreme::after {
+            left: 4px;
+            text-shadow: 0 0 20px silver, 0 0 30px #ff00c1;
+            animation: glitch-anim-2 0.3s infinite linear alternate-reverse, glitch-shift 0.4s infinite;
+            clip-path: polygon(0 0, 100% 10%, 100% 40%, 0 30%, 0 70%, 100% 60%, 100% 90%, 0 100%);
+        }
+        
+        /* Animation keyframes */
+        @keyframes glitch-anim-1 {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1.01);
+                opacity: 0.9;
+            }
+            20% {
+                transform: translate3d(-5px, 0, 0);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translate3d(3px, 2px, 0);
+                opacity: 1;
+            }
+            60% {
+                transform: translate3d(-2px, -3px, 0) scale(0.99);
+                opacity: 0.9;
+            }
+            80% {
+                transform: translate3d(1px, 2px, 0);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate3d(0, 0, 0) scale(1.01);
+                opacity: 0.9;
+            }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% {
+                transform: translate3d(0, 0, 0) scale(0.99);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translate3d(5px, 2px, 0);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translate3d(-3px, 1px, 0);
+                opacity: 1;
+            }
+            75% {
+                transform: translate3d(1px, -3px, 0) scale(1.01);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate3d(0, 0, 0) scale(0.99);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes shake {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-5px, 5px); }
+            50% { transform: translate(5px, -5px); }
+            75% { transform: translate(-3px, -3px); }
+            100% { transform: translate(3px, 3px); }
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            25% { opacity: 0.8; }
+            50% { opacity: 1; }
+            75% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes glitch-shift {
+            0% {
+                clip-path: polygon(0 10%, 100% 0, 100% 30%, 0 40%, 0 60%, 100% 70%, 100% 100%, 0 90%);
+            }
+            20% {
+                clip-path: polygon(0 15%, 100% 5%, 100% 35%, 0 45%, 0 65%, 100% 75%, 100% 95%, 0 85%);
+            }
+            40% {
+                clip-path: polygon(0 5%, 100% 15%, 100% 25%, 0 35%, 0 55%, 100% 65%, 100% 85%, 0 95%);
+            }
+            60% {
+                clip-path: polygon(0 20%, 100% 10%, 100% 40%, 0 50%, 0 70%, 100% 60%, 100% 90%, 0 80%);
+            }
+            80% {
+                clip-path: polygon(0 0%, 100% 20%, 100% 50%, 0 60%, 0 80%, 100% 70%, 100% 80%, 0 70%);
+            }
+            100% {
+                clip-path: polygon(0 10%, 100% 0, 100% 30%, 0 40%, 0 60%, 100% 70%, 100% 100%, 0 90%);
+            }
+        }
+
+        /* Main animation */
+        @keyframes glitch-anim {
+            0% {
+                transform: translate(0);
+                text-shadow: 0 0 5px #00fff9;
+            }
+            25% {
+                transform: translate(-1px, 1px);
+                text-shadow: 0 0 10px #ff00c1;
+            }
+            50% {
+                transform: translate(1px, -1px);
+                text-shadow: 0 0 15px #00fff9;
+            }
+            75% {
+                transform: translate(-1px, -1px);
+                text-shadow: 0 0 10px #ff00c1;
+            }
+            100% {
+                transform: translate(1px, 1px);
+                text-shadow: 0 0 5px #00fff9;
+            }
+        }
+        
+        /* Pseudo-element animation */
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(20px, 900px, 56px, 0);
+            }
+            10% {
+                clip: rect(89px, 900px, 98px, 0);
+            }
+            20% {
+                clip: rect(46px, 900px, 78px, 0);
+            }
+            30% {
+                clip: rect(32px, 900px, 42px, 0);
+            }
+            40% {
+                clip: rect(12px, 900px, 59px, 0);
+            }
+            50% {
+                clip: rect(86px, 900px, 119px, 0);
+            }
+            60% {
+                clip: rect(64px, 900px, 111px, 0);
+            }
+            70% {
+                clip: rect(15px, 900px, 28px, 0);
+            }
+            80% {
+                clip: rect(101px, 900px, 122px, 0);
+            }
+            90% {
+                clip: rect(52px, 900px, 68px, 0);
+            }
+            100% {
+                clip: rect(3px, 900px, 25px, 0);
+            }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(65px, 900px, 119px, 0);
+            }
+            10% {
+                clip: rect(112px, 900px, 142px, 0);
+            }
+            20% {
+                clip: rect(24px, 900px, 51px, 0);
+            }
+            30% {
+                clip: rect(92px, 900px, 129px, 0);
+            }
+            40% {
+                clip: rect(38px, 900px, 53px, 0);
+            }
+            50% {
+                clip: rect(71px, 900px, 119px, 0);
+            }
+            60% {
+                clip: rect(29px, 900px, 70px, 0);
+            }
+            70% {
+                clip: rect(106px, 900px, 132px, 0);
+            }
+            80% {
+                clip: rect(4px, 900px, 22px, 0);
+            }
+            90% {
+                clip: rect(80px, 900px, 98px, 0);
+            }
+            100% {
+                clip: rect(50px, 900px, 82px, 0);
+            }
+        }
+
+        /* 星空背景 */
+        .cosmos-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-color: black;
+        }
+        
+        /* 星星 */
+        .star {
+            position: absolute;
+            background-color: rgba(192, 192, 192, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.8), 0 0 20px rgba(192, 192, 192, 0.5);
+            animation: twinkle 4s infinite alternate, starMove 60s infinite linear;
+        }
+        
+        /* 星星闪烁动画 */
+        @keyframes twinkle {
+            0% {
+                opacity: 0.3;
+                box-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 10px rgba(192, 192, 192, 0.8), 0 0 20px rgba(192, 192, 192, 0.4);
+            }
+            100% {
+                opacity: 0.5;
+                box-shadow: 0 0 15px rgba(192, 192, 192, 0.6);
+            }
+        }
+        
+        /* 星星移动动画 */
+        @keyframes starMove {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-15px) translateX(10px);
+            }
+            50% {
+                transform: translateY(0) translateX(20px);
+            }
+            75% {
+                transform: translateY(15px) translateX(10px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="cosmos-background" id="cosmosBackground"></div>
+    
+    <!-- Background elements -->
+    <div class="concrete"></div>
+    <div class="noise"></div>
+    <div class="grid-lines"></div>
+    
+    <!-- Navigation menu -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li class="nav-item active" data-target="home">Home</li>
+            <li class="nav-item" data-target="artifacts">Artifacts</li>
+            <li class="nav-item" data-target="ownership">Ownership</li>
+            <li class="nav-item" data-target="value">Value</li>
+        </ul>
+    </nav>
+    
+    <!-- Audio Controls -->
+    <div class="custom-audio-controls">
+        <button class="play-button" title="Play/Pause">▶</button>
+        <div class="volume-container">
+            <span class="volume-icon">🔊</span>
+            <input type="range" class="custom-volume" min="0" max="1" step="0.01" value="0.7" title="Volume">
+        </div>
+    </div>
+    
+    <!-- Volume Indicator -->
+    <div class="volume-indicator">
+        <div class="volume-level"></div>
+    </div>
+    
+    <!-- Home button -->
+    <button id="homeButton" class="home-button">
+        <span class="home-icon">⌂</span>
+    </button>
+
+    <!-- Main content pages -->
+    <div class="page active" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">EVERLOST</h1>
+            <p class="hero-subtitle">Digital Artifacts of Tomorrow</p>
+            <div class="cta-container">
+                <button class="cta-button primary" onclick="showPage('artifacts')">Explore Collection</button>
+                <button class="cta-button" onclick="showPage('ownership')">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="artifacts">
+        <div class="page-content">
+            <h2 class="page-title">Digital Artifacts</h2>
+            <p class="page-description">Curate and collect unique digital artifacts that transcend traditional art boundaries.</p>
+            <div class="gallery">
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="ownership">
+        <div class="page-content">
+            <h2 class="page-title">Eternal Ownership</h2>
+            <p class="page-description">Secure permanent ownership of digital masterpieces through blockchain technology.</p>
+            <div class="ownership-features">
+                <div class="ownership-feature">
+                    <h3>Blockchain Verified</h3>
+                    <p>Every piece is uniquely verified and tracked on the blockchain.</p>
+                </div>
+                <div class="ownership-feature">
+                    <h3>Smart Contracts</h3>
+                    <p>Automated royalties and transfers through smart contracts.</p>
+                </div>
+                <div class="ownership-feature">
+                    <h3>Permanent Record</h3>
+                    <p>Your ownership is permanently recorded and immutable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="value">
+        <div class="page-content">
+            <h2 class="page-title">Future Value</h2>
+            <p class="page-description">Invest in the future of art with pieces that appreciate in both value and meaning.</p>
+            <div class="value-chart"></div>
+        </div>
+    </div>
+
+    <script>
+        // Audio related variables
+        let audio = null;
+        let isPlaying = false;
+        let volumeSlider = null;
+        let playButton = null;
+        let dnaBackground = null; // DNA背景元素
+        
+        // Create and load audio
+        function loadAudio() {
+            // Create new audio element
+            audio = new Audio();
+            // Set audio source path
+            audio.src = 'web-music/Galactic Visionaries.mp3';
+            // Set audio properties
+            audio.volume = 0.7;
+            audio.loop = true;
+            audio.preload = 'auto';
+            
+            console.log("Audio loaded");
+            
+            // Preload audio
+            audio.load();
+            
+            // Check if audio is accessible
+            checkAudioFile();
+        }
+        
+        // Check if audio file is accessible
+        function checkAudioFile() {
+            const audioPath = "web-music/Galactic Visionaries.mp3";
+            console.log(`Checking audio file: ${audioPath}`);
+            
+            fetch(audioPath)
+                .then(response => {
+                    if (response.ok) {
+                        console.log(`Audio file exists and is accessible: ${audioPath}`);
+                    } else {
+                        console.error(`Audio file is not accessible: ${audioPath} (status: ${response.status})`);
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error checking audio file: ${error}`);
+                });
+        }
+        
+        // Initialize audio controls
+        function initializeAudioControls() {
+            // Play button control
+            if (playButton) {
+                playButton.addEventListener('click', function() {
+                    togglePlayback();
+                });
+            } else {
+                console.log('ERROR: Play button not found');
+            }
+            
+            // Volume control
+            if (volumeSlider) {
+                volumeSlider.addEventListener('input', function() {
+                    const newVolume = parseFloat(this.value);
+                    if (audio) {
+                        audio.volume = newVolume;
+                    }
+                    
+                    // Update visual effects based on volume
+                    updateTitleEffects(newVolume);
+                    
+                    // Update volume indicator
+                    updateVolumeIndicator(newVolume);
+                });
+                
+                // Initial volume indicator update
+                updateVolumeIndicator(parseFloat(volumeSlider.value));
+            }
+            
+            // Reset interface when audio ends
+            if (audio) {
+                audio.addEventListener('ended', function() {
+                    if (audio.loop === false) {
+                        resetInterface();
+                    }
+                });
+            }
+            
+            // Show volume indicator when hovering over audio controls
+            const audioControls = document.querySelector('.custom-audio-controls');
+            const volumeIndicator = document.querySelector('.volume-indicator');
+            
+            if (audioControls && volumeIndicator) {
+                audioControls.addEventListener('mouseenter', function(e) {
+                    volumeIndicator.style.opacity = '0.8';
+                });
+                
+                audioControls.addEventListener('mouseleave', function(e) {
+                    // Don't hide if mouse is over the indicator
+                    if (!isMouseOverElement(volumeIndicator, e)) {
+                        setTimeout(() => {
+                            volumeIndicator.style.opacity = '0';
+                        }, 2000);
+                    }
+                });
+            }
+        }
+        
+        // Check if mouse is over element
+        function isMouseOverElement(element, e) {
+            const rect = element.getBoundingClientRect();
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            return (
+                mouseX >= rect.left &&
+                mouseX <= rect.right &&
+                mouseY >= rect.top &&
+                mouseY <= rect.bottom
+            );
+        }
+        
+        // Update volume indicator
+        function updateVolumeIndicator(volume) {
+            const volumeLevel = document.querySelector('.volume-level');
+            if (volumeLevel) {
+                volumeLevel.style.height = (volume * 100) + '%';
+                
+                // Change color based on volume
+                if (volume > 0.9) {
+                    volumeLevel.style.background = 'linear-gradient(to top, #ff00c1, #ff0000)';
+                } else if (volume > 0.7) {
+                    volumeLevel.style.background = 'linear-gradient(to top, silver, #ff00c1)';
+                } else if (volume > 0.4) {
+                    volumeLevel.style.background = 'linear-gradient(to top, #444, silver)';
+                } else {
+                    volumeLevel.style.background = 'linear-gradient(to top, #111, #444)';
+                }
+            }
+        }
+        
+        // Toggle playback
+        function togglePlayback() {
+            if (!audio) {
+                loadAudio();
+            }
+            
+            if (isPlaying) {
+                pauseAudio();
+            } else {
+                playAudio();
+            }
+        }
+        
+        // Play audio
+        function playAudio() {
+            try {
+                // Set volume
+                audio.volume = parseFloat(volumeSlider.value);
+                
+                // Play audio
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        playButton.textContent = '❚❚';
+                        
+                        // Update title effects
+                        updateTitleEffects(audio.volume);
+                    })
+                    .catch(error => {
+                        console.error(`PLAY ERROR: ${error.message}`);
+                        resetInterface();
+                    });
+                
+            } catch (e) {
+                console.error(`ERROR: ${e}`);
+                resetInterface();
+            }
+        }
+        
+        // Pause audio
+        function pauseAudio() {
+            audio.pause();
+            resetInterface();
+        }
+        
+        // Reset interface
+        function resetInterface() {
+            isPlaying = false;
+            playButton.textContent = '▶';
+            
+            // Remove title effects
+            const heroTitle = document.querySelector('.hero-title');
+            heroTitle.classList.remove('glitch', 'glitch-high', 'glitch-medium', 'glitch-low', 'glitch-extreme');
+            heroTitle.style.transform = '';
+            heroTitle.style.textShadow = '';
+            heroTitle.removeAttribute('data-text');
+            heroTitle.style.color = 'white';
+        }
+        
+        // Update based on volume effects
+        function updateTitleEffects(intensity) {
+            // Clear all effect classes
+            const heroTitle = document.querySelector('.hero-title');
+            heroTitle.classList.remove('glitch-extreme', 'glitch-high', 'glitch-medium', 'glitch-low');
+            
+            // If volume is 0, remove all effects and return
+            if (intensity <= 0) {
+                heroTitle.classList.remove('glitch');
+                heroTitle.style.transform = '';
+                heroTitle.style.textShadow = '';
+                heroTitle.style.filter = '';
+                heroTitle.removeAttribute('data-text');
+                heroTitle.style.color = 'white';
+                return;
+            }
+            
+            // Set data-text attribute for pseudo-elements
+            heroTitle.setAttribute('data-text', heroTitle.textContent);
+            
+            // Ensure glitch class is always present
+            if (!heroTitle.classList.contains('glitch')) {
+                heroTitle.classList.add('glitch');
+            }
+            
+            // 根据音量强度设置基本颜色 - 更强烈的颜色对比
+            const intensity2 = intensity * intensity; // 平方增强差异
+            const intensity3 = intensity * intensity * intensity; // 立方增强差异
+            
+            // Simple effects based on intensity
+            if (intensity > 0.9) {
+                // Extreme intensity (0.9-1.0) - 极端狂暴效果
+                heroTitle.classList.add('glitch-extreme');
+                
+                // 完全不同的颜色方案 - 高饱和度
+                heroTitle.style.color = `rgb(255, ${155 + (intensity * 100)}, ${255 * intensity})`;
+                
+                // 极端扭曲和变形
+                const skewX = (Math.random() * 40 - 20) * intensity + 'deg';
+                const skewY = (Math.random() * 30 - 15) * intensity + 'deg';
+                const scale = 1 + (Math.random() * 0.5) * intensity;
+                const rotate = (Math.random() * 8 - 4) * intensity + 'deg';
+                const translateX = (Math.random() * 20 - 10) * intensity + 'px';
+                const translateY = (Math.random() * 10 - 5) * intensity + 'px';
+                
+                heroTitle.style.transform = `skew(${skewX}, ${skewY}) scale(${scale}) rotate(${rotate}) translate(${translateX}, ${translateY})`;
+                
+                // 极端的发光效果 - 多层次强烈发光
+                const glowSize = 25 + Math.random() * 40 * intensity;
+                const secondaryGlow = 20 + Math.random() * 35 * intensity;
+                heroTitle.style.textShadow = `
+                    0 0 ${glowSize}px rgba(255, 255, 255, 0.9),
+                    0 0 ${secondaryGlow}px rgba(0, 255, 249, 0.8),
+                    0 0 ${secondaryGlow * 1.5}px rgba(255, 0, 193, 0.8),
+                    0 0 ${secondaryGlow * 2}px rgba(255, 0, 0, 0.7)`;
+                
+                // 极端的滤镜效果 - 高对比度、高亮度和色相旋转
+                const contrastValue = 200 + (100 * intensity);
+                const brightnessValue = 150 + (50 * intensity);
+                const hueRotate = Math.random() * 60 + 'deg';
+                heroTitle.style.filter = `brightness(${brightnessValue}%) contrast(${contrastValue}%) hue-rotate(${hueRotate}) saturate(${200 * intensity}%)`;
+                
+            } else if (intensity > 0.7) {
+                // High intensity (0.7-0.9) - 强烈影响
+                heroTitle.classList.add('glitch-high');
+                
+                // 高亮的颜色方案
+                heroTitle.style.color = `rgb(${200 + (intensity * 55)}, ${220 + (intensity * 35)}, 255)`;
+                
+                // 明显的扭曲效果
+                const skewX = (Math.random() * 20 - 10) * intensity + 'deg';
+                const skewY = (Math.random() * 15 - 7.5) * intensity + 'deg';
+                const scale = 1 + (Math.random() * 0.3) * intensity;
+                const rotate = (Math.random() * 3 - 1.5) * intensity + 'deg';
+                
+                heroTitle.style.transform = `skew(${skewX}, ${skewY}) scale(${scale}) rotate(${rotate})`;
+                
+                // 强烈的发光效果
+                const glowSize = 20 + Math.random() * 30 * intensity;
+                const secondaryGlow = 15 + Math.random() * 25 * intensity;
+                heroTitle.style.textShadow = `
+                    0 0 ${glowSize}px rgba(255, 255, 255, 0.8),
+                    0 0 ${secondaryGlow}px rgba(0, 255, 249, 0.7),
+                    0 0 ${secondaryGlow * 1.5}px rgba(255, 0, 193, 0.7)`;
+                
+                // 强烈的滤镜效果
+                const brightnessValue = 130 + (intensity * 30);
+                heroTitle.style.filter = `brightness(${brightnessValue}%) contrast(150%) saturate(${150 * intensity}%)`;
+                
+            } else if (intensity > 0.4) {
+                // Medium intensity (0.4-0.7) - 中等影响
+                heroTitle.classList.add('glitch-medium');
+                
+                // 中等亮度颜色
+                heroTitle.style.color = `rgb(${180 + (intensity * 50)}, ${180 + (intensity * 50)}, ${200 + (intensity * 55)})`;
+                
+                // 中等扭曲效果
+                const skewX = (Math.random() * 10 - 5) * intensity + 'deg';
+                const skewY = (Math.random() * 6 - 3) * intensity + 'deg';
+                heroTitle.style.transform = `skew(${skewX}, ${skewY}) scale(${1 + intensity * 0.15})`;
+                
+                // 中等发光效果
+                const glowSize = 10 + Math.random() * 20 * intensity;
+                heroTitle.style.textShadow = `
+                    0 0 ${glowSize}px rgba(255, 255, 255, 0.7),
+                    0 0 ${glowSize * 0.7}px rgba(0, 255, 249, 0.5)`;
+                
+                // 中等滤镜效果
+                const brightnessValue = 120 + (intensity * 20);
+                heroTitle.style.filter = `brightness(${brightnessValue}%) contrast(120%) saturate(${120 * intensity}%)`;
+                
+            } else if (intensity > 0) {
+                // Low intensity (>0 - 0.4) - 轻微影响
+                heroTitle.classList.add('glitch-low');
+                
+                // 低亮度颜色 - 接近原始颜色
+                heroTitle.style.color = `rgb(${160 + (intensity * 60)}, ${160 + (intensity * 60)}, ${160 + (intensity * 60)})`;
+                
+                // 轻微扭曲效果
+                const skewX = (Math.random() * 2 - 1) * intensity + 'deg';
+                heroTitle.style.transform = `skewX(${skewX}) scale(${1 + intensity * 0.05})`;
+                
+                // 轻微发光效果
+                const glowSize = 5 + 8 * intensity;
+                heroTitle.style.textShadow = `0 0 ${glowSize}px rgba(255, 255, 255, 0.6)`;
+                
+                // 轻微滤镜效果
+                const brightnessValue = 100 + (intensity * 15);
+                heroTitle.style.filter = `brightness(${brightnessValue}%) contrast(100%) saturate(100%)`;
+            }
+            
+            // 更新音量指示器颜色
+            updateVolumeIndicator(intensity);
+        }
+        
+        // Initialize navigation
+        function initializeNavigation() {
+            // Add navigation item click event
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-target');
+                    showPage(targetPage);
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Add home button click event
+            const homeButton = document.getElementById('homeButton');
+            if (homeButton) {
+                homeButton.addEventListener('click', function() {
+                    showPage('home');
+                    
+                    // Update navigation active state
+                    document.querySelectorAll('.nav-item').forEach(navItem => {
+                        navItem.classList.remove('active');
+                    });
+                    document.querySelector('.nav-item[data-target="home"]').classList.add('active');
+                });
+            }
+        }
+        
+        // Page navigation function
+        function showPage(pageId) {
+            // Add exit animation to current page
+            document.querySelectorAll('.page.active').forEach(page => {
+                page.classList.add('exit');
+                setTimeout(() => {
+                    page.classList.remove('active', 'exit');
+                }, 500);
+            });
+            
+            // Show new page and add enter animation
+            setTimeout(() => {
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                } else {
+                    console.log(`Error: Page ${pageId} not found`);
+                }
+            }, 500);
+            
+            // Show/hide home button
+            const homeButton = document.getElementById('homeButton');
+            if (homeButton) {
+                if (pageId === 'home') {
+                    homeButton.classList.remove('visible');
+                } else {
+                    homeButton.classList.add('visible');
+                }
+            }
+        }
+        
+        // Global variables
+        let heroTitle = document.querySelector('.hero-title');
+        
+        // Page load event
+        window.addEventListener('load', function() {
+            try {
+                // 初始化UI元素
+                playButton = document.querySelector('.play-button');
+                volumeSlider = document.querySelector('.custom-volume');
+                dnaBackground = document.getElementById('dnaBackground');
+                
+                // Load audio
+                loadAudio();
+                
+                // Set initial volume
+                if (volumeSlider && audio) {
+                    audio.volume = parseFloat(volumeSlider.value);
+                }
+                
+                // Initialize navigation
+                initializeNavigation();
+                
+                // Initialize title animation
+                heroTitle.classList.add('reveal');
+                
+                // Initialize audio controls
+                initializeAudioControls();
+                
+                // Initially no visual effects until audio plays
+                resetInterface();
+                
+                // Create DNA background
+                // createDNABackground();
+                
+                // Create cosmos background
+                createCosmosBackground();
+                
+            } catch (error) {
+                console.error(error);
+            }
+        });
+        
+        // 创建星空背景
+        function createCosmosBackground() {
+            const cosmosBackground = document.getElementById('cosmosBackground');
+            if (!cosmosBackground) return;
+            
+            // 清空原有内容
+            cosmosBackground.innerHTML = '';
+            
+            // 创建星星
+            const numStars = 150;
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机大小
+                const size = Math.random() * 2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                
+                // 随机位置
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                
+                // 随机动画延迟
+                star.style.animationDelay = Math.random() * 4 + 's';
+                
+                cosmosBackground.appendChild(star);
+            }
+        }
+    </script>
+</body>
+</html>
